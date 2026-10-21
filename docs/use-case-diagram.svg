@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1310" viewBox="0 0 1760 1310" font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker><marker id="gen" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="14" markerHeight="14" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#ffffff" stroke="#1d4ed8" stroke-width="1.4"/></marker></defs>
+<rect width="1760" height="1310" fill="#f8fafc"/>
+<text x="880.0" y="36" font-size="24" font-weight="bold" fill="#0f172a" text-anchor="middle" >Use Case Diagram — Crypto Deposit &amp; Managed Yield Platform</text>
+<text x="880.0" y="60" font-size="13" font-weight="normal" fill="#475569" text-anchor="middle" >Actors, use cases and integrations for the React + Supabase system (see docs/ARCHITECTURE.md)</text>
+<rect x="210" y="80" width="1300" height="1000" rx="18" fill="#ffffff" stroke="#334155" stroke-width="2.4"/>
+<text x="1490" y="104" font-size="13" font-weight="bold" fill="#334155" text-anchor="end" >«system»  Platform boundary</text>
+<rect x="240" y="120" width="380" height="260" rx="14" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+<rect x="240" y="120" width="172" height="26" rx="10" fill="#2563eb"/>
+<text x="254" y="138" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Account &amp; Security</text>
+<rect x="240" y="400" width="380" height="310" rx="14" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+<rect x="240" y="400" width="76" height="26" rx="10" fill="#16a34a"/>
+<text x="254" y="418" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Wallet</text>
+<rect x="240" y="730" width="380" height="310" rx="14" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+<rect x="240" y="730" width="100" height="26" rx="10" fill="#7c3aed"/>
+<text x="254" y="748" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Investing</text>
+<rect x="660" y="120" width="380" height="940" rx="14" fill="#f8fafc" stroke="#64748b" stroke-width="2"/>
+<rect x="660" y="120" width="260" height="26" rx="10" fill="#64748b"/>
+<text x="674" y="138" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Platform Services (automated)</text>
+<rect x="1080" y="120" width="400" height="330" rx="14" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+<rect x="1080" y="120" width="212" height="26" rx="10" fill="#ea580c"/>
+<text x="1094" y="138" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Operations &amp; Compliance</text>
+<rect x="1080" y="470" width="400" height="330" rx="14" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
+<rect x="1080" y="470" width="148" height="26" rx="10" fill="#0d9488"/>
+<text x="1094" y="488" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Fund &amp; Treasury</text>
+<rect x="1080" y="820" width="400" height="240" rx="14" fill="#fff1f2" stroke="#e11d48" stroke-width="2"/>
+<rect x="1080" y="820" width="140" height="26" rx="10" fill="#e11d48"/>
+<text x="1094" y="838" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="start" >Administration</text>
+<line x1="134" y1="545" x2="280" y2="172" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="226" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="280" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="334" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="452" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="506" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="560" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="614" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="668" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="782" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="836" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="890" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="944" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="134" y1="545" x2="280" y2="998" stroke="#1d4ed8" stroke-width="1.6" opacity="0.75"/>
+<line x1="132" y1="1172" x2="280" y2="782" stroke="#0f766e" stroke-width="1.6" opacity="0.75"/>
+<line x1="132" y1="1172" x2="700" y2="1018" stroke="#0f766e" stroke-width="1.6" opacity="0.75"/>
+<line x1="1556" y1="178" x2="1430" y2="172" stroke="#c2410c" stroke-width="1.6" opacity="0.75"/>
+<line x1="1556" y1="178" x2="1430" y2="226" stroke="#c2410c" stroke-width="1.6" opacity="0.75"/>
+<line x1="1671" y1="288" x2="1430" y2="280" stroke="#9a3412" stroke-width="1.6" opacity="0.75"/>
+<line x1="1556" y1="393" x2="1430" y2="334" stroke="#ea580c" stroke-width="1.6" opacity="0.75"/>
+<line x1="1556" y1="393" x2="1430" y2="388" stroke="#ea580c" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="628" x2="1430" y2="576" stroke="#0f766e" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="628" x2="1430" y2="630" stroke="#0f766e" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="628" x2="1430" y2="684" stroke="#0f766e" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="628" x2="1430" y2="738" stroke="#0f766e" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="923" x2="1430" y2="876" stroke="#be123c" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="923" x2="1430" y2="930" stroke="#be123c" stroke-width="1.6" opacity="0.75"/>
+<line x1="1601" y1="923" x2="1430" y2="984" stroke="#be123c" stroke-width="1.6" opacity="0.75"/>
+<path d="M580,226 L700,230" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="640" y="219" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M580,280 L700,320" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="640" y="292" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M580,506 L700,470" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="640" y="481" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M580,668 L710,245" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="652" y="430" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M580,668 L700,560" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="640" y="606" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M580,836 L700,860" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="640" y="842" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M580,890 L704,868" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<path d="M850,495 L850,535" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="892" y="520" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M994,478 Q1040,565 992,652" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="1008" y="600" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M850,685 L850,735" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="890" y="714" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«trigger»</text>
+<path d="M1130,388 L996,652" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="1065" y="560" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M1130,684 L1000,664" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="1060" y="690" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<path d="M1134,640 Q1090,685 1134,730" fill="none" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="1126" y="716" font-size="10.5" font-weight="normal" fill="#334155" text-anchor="middle" font-style="italic">«include»</text>
+<ellipse cx="430" cy="172" rx="150" ry="25" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="430" y="176.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Register account</text>
+<ellipse cx="430" cy="226" rx="150" ry="25" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="430" y="230.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Sign in (email + 2FA)</text>
+<ellipse cx="430" cy="280" rx="150" ry="25" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="430" y="284.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Complete KYC verification</text>
+<circle cx="566" cy="256" r="9.5" fill="#0369a1" stroke="#fff" stroke-width="1.5"/>
+<text x="566" y="259.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >K</text>
+<ellipse cx="430" cy="334" rx="150" ry="25" fill="#ffffff" stroke="#2563eb" stroke-width="1.8"/>
+<text x="430" y="338.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Manage security &amp; devices</text>
+<ellipse cx="430" cy="452" rx="150" ry="25" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+<text x="430" y="456.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Get deposit address</text>
+<circle cx="566" cy="428" r="9.5" fill="#b45309" stroke="#fff" stroke-width="1.5"/>
+<text x="566" y="431.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<ellipse cx="430" cy="506" rx="150" ry="25" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+<text x="430" y="510.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Deposit crypto</text>
+<ellipse cx="430" cy="560" rx="150" ry="25" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+<text x="430" y="564.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >View balances &amp; activity</text>
+<ellipse cx="430" cy="614" rx="150" ry="25" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+<text x="430" y="618.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Manage withdrawal addresses</text>
+<ellipse cx="430" cy="668" rx="150" ry="25" fill="#ffffff" stroke="#16a34a" stroke-width="1.8"/>
+<text x="430" y="672.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Request withdrawal</text>
+<ellipse cx="430" cy="782" rx="150" ry="25" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="430" y="786.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Browse strategies &amp; risks</text>
+<ellipse cx="430" cy="836" rx="150" ry="25" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="430" y="840.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Subscribe to strategy</text>
+<ellipse cx="430" cy="890" rx="150" ry="25" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="430" y="894.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Redeem units</text>
+<ellipse cx="430" cy="944" rx="150" ry="25" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="430" y="948.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >View performance &amp; NAV</text>
+<ellipse cx="430" cy="998" rx="150" ry="25" fill="#ffffff" stroke="#7c3aed" stroke-width="1.8"/>
+<text x="430" y="1002.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Download statements</text>
+<circle cx="566" cy="974" r="9.5" fill="#475569" stroke="#fff" stroke-width="1.5"/>
+<text x="566" y="977.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >S</text>
+<ellipse cx="850" cy="230" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="234.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Verify 2FA challenge</text>
+<ellipse cx="850" cy="320" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="324.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Sync KYC status</text>
+<circle cx="986" cy="296" r="9.5" fill="#0369a1" stroke="#fff" stroke-width="1.5"/>
+<text x="986" y="299.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >K</text>
+<ellipse cx="850" cy="470" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="474.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Confirm on-chain deposit</text>
+<circle cx="986" cy="446" r="9.5" fill="#b45309" stroke="#fff" stroke-width="1.5"/>
+<text x="986" y="449.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<ellipse cx="850" cy="560" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="564.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Screen funds &amp; addresses</text>
+<circle cx="986" cy="536" r="9.5" fill="#b91c1c" stroke="#fff" stroke-width="1.5"/>
+<text x="986" y="539.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >A</text>
+<ellipse cx="850" cy="660" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="664.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Post immutable ledger entries</text>
+<ellipse cx="850" cy="760" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="764.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Push real-time balance updates</text>
+<ellipse cx="850" cy="860" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="864.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Apply latest published NAV</text>
+<ellipse cx="850" cy="1018" rx="150" ry="25" fill="#ffffff" stroke="#64748b" stroke-width="1.8"/>
+<text x="850" y="1022.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Show proof of reserves (public)</text>
+<circle cx="986" cy="994" r="9.5" fill="#b45309" stroke="#fff" stroke-width="1.5"/>
+<text x="986" y="997.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<ellipse cx="1280" cy="172" rx="150" ry="25" fill="#ffffff" stroke="#ea580c" stroke-width="1.8"/>
+<text x="1280" y="176.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Review KYC cases</text>
+<circle cx="1416" cy="148" r="9.5" fill="#0369a1" stroke="#fff" stroke-width="1.5"/>
+<text x="1416" y="151.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >K</text>
+<ellipse cx="1280" cy="226" rx="150" ry="25" fill="#ffffff" stroke="#ea580c" stroke-width="1.8"/>
+<text x="1280" y="230.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Place compliance hold</text>
+<ellipse cx="1280" cy="280" rx="150" ry="25" fill="#ffffff" stroke="#ea580c" stroke-width="1.8"/>
+<text x="1280" y="284.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Look up customer (read-only)</text>
+<ellipse cx="1280" cy="334" rx="150" ry="25" fill="#ffffff" stroke="#ea580c" stroke-width="1.8"/>
+<text x="1280" y="338.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Approve withdrawal (2-person)</text>
+<ellipse cx="1280" cy="388" rx="150" ry="25" fill="#ffffff" stroke="#ea580c" stroke-width="1.8"/>
+<text x="1280" y="392.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Execute payout</text>
+<circle cx="1416" cy="364" r="9.5" fill="#b45309" stroke="#fff" stroke-width="1.5"/>
+<text x="1416" y="367.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<ellipse cx="1280" cy="522" rx="150" ry="25" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+<text x="1280" y="526.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Snapshot holdings</text>
+<circle cx="1416" cy="498" r="9.5" fill="#475569" stroke="#fff" stroke-width="1.5"/>
+<text x="1416" y="501.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >S</text>
+<circle cx="1395" cy="498" r="9.5" fill="#4d7c0f" stroke="#fff" stroke-width="1.5"/>
+<text x="1395" y="501.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >E</text>
+<circle cx="1374" cy="498" r="9.5" fill="#b45309" stroke="#fff" stroke-width="1.5"/>
+<text x="1374" y="501.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<ellipse cx="1280" cy="576" rx="150" ry="25" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+<text x="1280" y="580.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Draft daily NAV</text>
+<ellipse cx="1280" cy="630" rx="150" ry="25" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+<text x="1280" y="634.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Approve &amp; publish NAV</text>
+<ellipse cx="1280" cy="684" rx="150" ry="25" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+<text x="1280" y="688.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Charge mgmt / performance fees</text>
+<ellipse cx="1280" cy="738" rx="150" ry="25" fill="#ffffff" stroke="#0d9488" stroke-width="1.8"/>
+<text x="1280" y="742.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Run reconciliation</text>
+<circle cx="1416" cy="714" r="9.5" fill="#475569" stroke="#fff" stroke-width="1.5"/>
+<text x="1416" y="717.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >S</text>
+<circle cx="1395" cy="714" r="9.5" fill="#b45309" stroke="#fff" stroke-width="1.5"/>
+<text x="1395" y="717.6" font-size="10.5" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<ellipse cx="1280" cy="876" rx="150" ry="25" fill="#ffffff" stroke="#e11d48" stroke-width="1.8"/>
+<text x="1280" y="880.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Manage staff roles</text>
+<ellipse cx="1280" cy="930" rx="150" ry="25" fill="#ffffff" stroke="#e11d48" stroke-width="1.8"/>
+<text x="1280" y="934.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Configure tenant &amp; strategies</text>
+<ellipse cx="1280" cy="984" rx="150" ry="25" fill="#ffffff" stroke="#e11d48" stroke-width="1.8"/>
+<text x="1280" y="988.5" font-size="13" font-weight="600" fill="#0f172a" text-anchor="middle" >Review audit log</text>
+<g stroke="#1d4ed8" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="110" cy="520" r="13" fill="#ffffff"/><line x1="110" y1="533" x2="110" y2="568"/><line x1="88" y1="546" x2="132" y2="546"/><line x1="110" y1="568" x2="94" y2="598"/><line x1="110" y1="568" x2="126" y2="598"/></g>
+<text x="110" y="618" font-size="14" font-weight="bold" fill="#1d4ed8" text-anchor="middle" >Investor</text>
+<text x="110" y="634" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Registered user</text>
+<g stroke="#0f766e" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="110" cy="1150" r="13" fill="#ffffff"/><line x1="110" y1="1163" x2="110" y2="1198"/><line x1="88" y1="1176" x2="132" y2="1176"/><line x1="110" y1="1198" x2="94" y2="1228"/><line x1="110" y1="1198" x2="126" y2="1228"/></g>
+<text x="110" y="1248" font-size="14" font-weight="bold" fill="#0f766e" text-anchor="middle" >Visitor</text>
+<text x="110" y="1264" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Public, not signed in</text>
+<line x1="110" y1="638" x2="110" y2="1132" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#gen)"/>
+<text x="122" y="890" font-size="11" font-weight="normal" fill="#1d4ed8" text-anchor="start" font-style="italic">is a</text>
+<g stroke="#c2410c" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="1580" cy="150" r="13" fill="#ffffff"/><line x1="1580" y1="163" x2="1580" y2="198"/><line x1="1558" y1="176" x2="1602" y2="176"/><line x1="1580" y1="198" x2="1564" y2="228"/><line x1="1580" y1="198" x2="1596" y2="228"/></g>
+<text x="1580" y="248" font-size="14" font-weight="bold" fill="#c2410c" text-anchor="middle" >Compliance</text>
+<text x="1580" y="264" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Officer</text>
+<g stroke="#9a3412" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="1695" cy="260" r="13" fill="#ffffff"/><line x1="1695" y1="273" x2="1695" y2="308"/><line x1="1673" y1="286" x2="1717" y2="286"/><line x1="1695" y1="308" x2="1679" y2="338"/><line x1="1695" y1="308" x2="1711" y2="338"/></g>
+<text x="1695" y="358" font-size="14" font-weight="bold" fill="#9a3412" text-anchor="middle" >Support</text>
+<text x="1695" y="374" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Agent</text>
+<g stroke="#ea580c" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="1580" cy="365" r="13" fill="#ffffff"/><line x1="1580" y1="378" x2="1580" y2="413"/><line x1="1558" y1="391" x2="1602" y2="391"/><line x1="1580" y1="413" x2="1564" y2="443"/><line x1="1580" y1="413" x2="1596" y2="443"/></g>
+<text x="1580" y="463" font-size="14" font-weight="bold" fill="#ea580c" text-anchor="middle" >Operations</text>
+<text x="1580" y="479" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Staff</text>
+<g stroke="#0f766e" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="1625" cy="600" r="13" fill="#ffffff"/><line x1="1625" y1="613" x2="1625" y2="648"/><line x1="1603" y1="626" x2="1647" y2="626"/><line x1="1625" y1="648" x2="1609" y2="678"/><line x1="1625" y1="648" x2="1641" y2="678"/></g>
+<text x="1625" y="698" font-size="14" font-weight="bold" fill="#0f766e" text-anchor="middle" >Finance</text>
+<text x="1625" y="714" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Manager</text>
+<g stroke="#be123c" stroke-width="2.6" fill="none" stroke-linecap="round"><circle cx="1625" cy="895" r="13" fill="#ffffff"/><line x1="1625" y1="908" x2="1625" y2="943"/><line x1="1603" y1="921" x2="1647" y2="921"/><line x1="1625" y1="943" x2="1609" y2="973"/><line x1="1625" y1="943" x2="1641" y2="973"/></g>
+<text x="1625" y="993" font-size="14" font-weight="bold" fill="#be123c" text-anchor="middle" >Admin</text>
+<text x="1625" y="1009" font-size="11" font-weight="normal" fill="#475569" text-anchor="middle" >Super-user</text>
+<text x="860" y="1112" font-size="13" font-weight="bold" fill="#334155" text-anchor="middle" >External systems («system» actors) — linked to use cases by the coloured chips</text>
+<rect x="330" y="1128" width="220" height="62" rx="10" fill="#ffffff" stroke="#b45309" stroke-width="2"/>
+<circle cx="352" cy="1159" r="12" fill="#b45309"/>
+<text x="352" y="1163.5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" >C</text>
+<text x="456" y="1151" font-size="10.5" font-weight="normal" fill="#64748b" text-anchor="middle" >«system»</text>
+<text x="456" y="1170" font-size="11.5" font-weight="bold" fill="#b45309" text-anchor="middle" >Custodian / BTCPay Server</text>
+<rect x="566" y="1128" width="220" height="62" rx="10" fill="#ffffff" stroke="#0369a1" stroke-width="2"/>
+<circle cx="588" cy="1159" r="12" fill="#0369a1"/>
+<text x="588" y="1163.5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" >K</text>
+<text x="692" y="1151" font-size="10.5" font-weight="normal" fill="#64748b" text-anchor="middle" >«system»</text>
+<text x="692" y="1170" font-size="11.5" font-weight="bold" fill="#0369a1" text-anchor="middle" >KYC (Sumsub / Persona)</text>
+<rect x="802" y="1128" width="220" height="62" rx="10" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
+<circle cx="824" cy="1159" r="12" fill="#b91c1c"/>
+<text x="824" y="1163.5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" >A</text>
+<text x="928" y="1151" font-size="10.5" font-weight="normal" fill="#64748b" text-anchor="middle" >«system»</text>
+<text x="928" y="1170" font-size="11.5" font-weight="bold" fill="#b91c1c" text-anchor="middle" >AML (Chainalysis / TRM)</text>
+<rect x="1038" y="1128" width="220" height="62" rx="10" fill="#ffffff" stroke="#4d7c0f" stroke-width="2"/>
+<circle cx="1060" cy="1159" r="12" fill="#4d7c0f"/>
+<text x="1060" y="1163.5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" >E</text>
+<text x="1164" y="1151" font-size="10.5" font-weight="normal" fill="#64748b" text-anchor="middle" >«system»</text>
+<text x="1164" y="1170" font-size="11.5" font-weight="bold" fill="#4d7c0f" text-anchor="middle" >Exchange / Broker APIs</text>
+<rect x="1274" y="1128" width="220" height="62" rx="10" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+<circle cx="1296" cy="1159" r="12" fill="#475569"/>
+<text x="1296" y="1163.5" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle" >S</text>
+<text x="1400" y="1151" font-size="10.5" font-weight="normal" fill="#64748b" text-anchor="middle" >«system»</text>
+<text x="1400" y="1170" font-size="11.5" font-weight="bold" fill="#475569" text-anchor="middle" >Scheduler (pg_cron)</text>
+<rect x="330" y="1214" width="1180" height="78" rx="10" fill="#ffffff" stroke="#cbd5e1"/>
+<text x="346" y="1236" font-size="13" font-weight="bold" fill="#0f172a" text-anchor="start" >Legend</text>
+<line x1="350" y1="1262" x2="400" y2="1262" stroke="#1d4ed8" stroke-width="1.8"/>
+<text x="410" y="1266" font-size="12" font-weight="normal" fill="#334155" text-anchor="start" >Association (actor uses case)</text>
+<path d="M620,1262 L670,1262" stroke="#334155" stroke-width="1.4" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="680" y="1266" font-size="12" font-weight="normal" fill="#334155" text-anchor="start" >«include» / «trigger» (always runs)</text>
+<line x1="920" y1="1262" x2="966" y2="1262" stroke="#1d4ed8" stroke-width="1.8" marker-end="url(#gen)"/>
+<text x="980" y="1266" font-size="12" font-weight="normal" fill="#334155" text-anchor="start" >Generalisation</text>
+<circle cx="1110" cy="1262" r="9" fill="#b45309"/>
+<text x="1110" y="1266" font-size="10" font-weight="bold" fill="#fff" text-anchor="middle" >C</text>
+<text x="1126" y="1266" font-size="12" font-weight="normal" fill="#334155" text-anchor="start" >External integration</text>
+<rect x="1270" y="1244" width="12" height="12" rx="3" fill="#2563eb"/>
+<text x="1287" y="1255" font-size="11" font-weight="normal" fill="#334155" text-anchor="start" >Account</text>
+<rect x="1348" y="1244" width="12" height="12" rx="3" fill="#16a34a"/>
+<text x="1365" y="1255" font-size="11" font-weight="normal" fill="#334155" text-anchor="start" >Wallet</text>
+<rect x="1426" y="1244" width="12" height="12" rx="3" fill="#7c3aed"/>
+<text x="1443" y="1255" font-size="11" font-weight="normal" fill="#334155" text-anchor="start" >Invest</text>
+<rect x="1270" y="1270" width="12" height="12" rx="3" fill="#ea580c"/>
+<text x="1287" y="1281" font-size="11" font-weight="normal" fill="#334155" text-anchor="start" >Ops</text>
+<rect x="1348" y="1270" width="12" height="12" rx="3" fill="#0d9488"/>
+<text x="1365" y="1281" font-size="11" font-weight="normal" fill="#334155" text-anchor="start" >Fund</text>
+<rect x="1426" y="1270" width="12" height="12" rx="3" fill="#e11d48"/>
+<text x="1443" y="1281" font-size="11" font-weight="normal" fill="#334155" text-anchor="start" >Admin</text>
+<text x="346" y="1284" font-size="11.5" font-weight="normal" fill="#b91c1c" text-anchor="start" >Rule: no actor can edit balances directly. Every balance change flows through “Post immutable ledger entries”.</text>
+</svg>

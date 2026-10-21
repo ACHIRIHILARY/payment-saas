@@ -1,0 +1,20 @@
+{
+  "name": "payment-saas",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w @app/web",
+    "dev:admin": "npm run dev -w @app/admin",
+    "build": "npm run build -w @app/web && npm run build -w @app/admin",
+    "typecheck": "tsc -p packages/shared",
+    "test:db": "node scripts/test-db.mjs",
+    "db:types": "npx supabase@latest gen types typescript --local > packages/shared/src/database.types.ts"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.0"
+  }
+}
