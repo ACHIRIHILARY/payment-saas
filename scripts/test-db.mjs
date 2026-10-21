@@ -204,5 +204,144 @@ await test('staff role changes are written to the audit log', async () => {
   if (r.n < 2) throw new Error(`audit rows: ${r.n}`)
 })
 
+// ------------------------------------------------------------- Phase 1 ------
+console.log('\nPhase 1: KYC, deposits, withdrawals')
+const carol = (await one(`insert into auth.users (email) values ('carol@test') returning id`)).id
+const dave = (await one(`insert into auth.users (email) values ('dave@test') returning id`)).id
+const ops2 = (await one(`insert into auth.users (email) values ('ops2@test') returning id`)).id
+const comp = (await one(`insert into auth.users (email) values ('comp@test') returning id`)).id
+await db.query(
+  `insert into staff_roles (user_id, tenant_id, role) values ($1, $3, 'ops'), ($2, $3, 'compliance')`,
+  [ops2, comp, tenant],
+)
+const addrFor = async (user, ref) =>
+  (await one(
+    `insert into deposit_addresses (tenant_id, user_id, asset_code, address, custodian_ref)
+     values ($1, $2, 'USDT-TRON', $3, $3) returning id`, [tenant, user, `T-${ref}`])).id
+const deposit = (addr, ref, amount, settled, amlOk) =>
+  one(`select * from record_deposit($1, $2, $3, $4, $5, $6, $7)`, [addr, ref, `tx-${ref}`, amount, settled ? 6 : 1, settled, amlOk])
+const cash = async (user) => Number((await one(`select cash_balance($1, 'USDT-TRON') as b`, [user])).b)
+
+await test('KYC result from the provider updates the profile', async () => {
+  await db.query(`select apply_kyc_result($1, 'sumsub', 'app-carol', 'approved')`, [carol])
+  const p = await one(`select kyc_status from profiles where id = $1`, [carol])
+  if (p.kyc_status !== 'approved') throw new Error(p.kyc_status)
+})
+
+const carolAddr = await addrFor(carol, 'carol')
+await test('deposit moves confirming -> screening -> credited, exactly once', async () => {
+  let d = await deposit(carolAddr, 'p1', 300, false, null)
+  if (d.status !== 'confirming' || (await cash(carol)) !== 0) throw new Error(`step1 ${d.status}`)
+  d = await deposit(carolAddr, 'p1', 300, true, null)
+  if (d.status !== 'screening' || (await cash(carol)) !== 0) throw new Error(`step2 ${d.status}`)
+  d = await deposit(carolAddr, 'p1', 300, true, true)
+  if (d.status !== 'credited' || (await cash(carol)) !== 300) throw new Error(`step3 ${d.status}`)
+  d = await deposit(carolAddr, 'p1', 300, true, true)
+  if ((await cash(carol)) !== 300) throw new Error('credited twice')
+})
+
+await test('a reported amount change on the same payment is rejected', async () => {
+  await deposit(carolAddr, 'p2', 5, false, null)
+  await expectError(`select record_deposit($1, 'p2', 'tx', 7, 6, true, true)`, /amount changed/, [carolAddr])
+})
+
+await test('AML-flagged deposit is held and not credited', async () => {
+  const d = await deposit(carolAddr, 'p3', 40, true, false)
+  if (d.status !== 'held' || (await cash(carol)) !== 300) throw new Error(d.status)
+  const again = await deposit(carolAddr, 'p3', 40, true, true)
+  if (again.status !== 'held') throw new Error('automation released a held deposit')
+})
+
+const daveAddr = await addrFor(dave, 'dave')
+await test('deposit from a user without KYC is held until compliance releases it', async () => {
+  const d = await deposit(daveAddr, 'p4', 25, true, true)
+  if (d.status !== 'held' || (await cash(dave)) !== 0) throw new Error(d.status)
+  await expectError(`select resolve_held_deposit($1, $2, true, 'ok')`, /Only compliance/, [ops1, d.id])
+  const r = await one(`select * from resolve_held_deposit($1, $2, true, 'Source of funds verified')`, [comp, d.id])
+  if (r.status !== 'credited' || (await cash(dave)) !== 25) throw new Error(r.status)
+})
+
+await db.query(
+  `insert into withdrawal_limits (tenant_id, asset_code, single_approval_limit, min_amount, platform_fee)
+   values ($1, 'USDT-TRON', 100, 5, 1)`, [tenant])
+const carolW = (await one(
+  `insert into withdrawal_addresses (tenant_id, user_id, asset_code, address) values ($1, $2, 'USDT-TRON', 'TCarolWallet000001') returning id`,
+  [tenant, carol])).id
+const req = (user, addr, amount) => one(`select * from request_withdrawal($1, $2, $3)`, [user, addr, amount])
+
+await test('new withdrawal address cannot be used during its cool-down', () =>
+  expectError(`select request_withdrawal($1, $2, 10)`, /can be used from/, [carol, carolW]))
+
+await db.query(`update withdrawal_addresses set usable_after = now() - interval '1 minute' where id = $1`, [carolW])
+
+await test('withdrawal above balance (incl. fee) is refused', () =>
+  expectError(`select request_withdrawal($1, $2, 300)`, /Insufficient balance/, [carol, carolW]))
+
+await test('withdrawal below minimum is refused', () =>
+  expectError(`select request_withdrawal($1, $2, 2)`, /below the minimum/, [carol, carolW]))
+
+await test('small withdrawal: reserve, one approval, single payout, settle', async () => {
+  const w = await req(carol, carolW, 50)
+  if (w.status !== 'pending_approval' || (await cash(carol)) !== 249) throw new Error(`reserve ${w.status} ${await cash(carol)}`)
+  await expectError(`select approve_withdrawal($1, $2)`, /Only operations/, [carol, w.id])
+  const a = await one(`select * from approve_withdrawal($1, $2)`, [ops1, w.id])
+  if (a.status !== 'approved') throw new Error(`approve ${a.status}`)
+  const c1 = await one(`select (claim_withdrawal_for_payout($1)).id as id`, [w.id])
+  const c2 = await one(`select (claim_withdrawal_for_payout($1)).id as id`, [w.id])
+  if (!c1.id || c2.id) throw new Error('payout could be claimed twice')
+  const s = await one(`select * from settle_withdrawal($1, 'btcpay-1', '0xabc', 0.3)`, [w.id])
+  if (s.status !== 'completed') throw new Error(s.status)
+  const pending = await one(
+    `select coalesce(sum(balance),0)::numeric as b from account_balances where type = 'pending_withdrawals'`)
+  const fees = await one(`select -coalesce(sum(balance),0)::numeric as b from account_balances where type = 'fees'`)
+  // platform fee 1 minus the 0.3 miner fee the platform absorbed
+  if (Number(pending.b) !== 0 || Number(fees.b) !== 0.7) throw new Error(`pending ${pending.b} fees ${fees.b}`)
+})
+
+await test('large withdrawal needs two different approvers', async () => {
+  const w = await req(carol, carolW, 150)
+  let a = await one(`select * from approve_withdrawal($1, $2)`, [ops1, w.id])
+  if (a.status !== 'pending_approval') throw new Error(`after first: ${a.status}`)
+  await expectError(`select approve_withdrawal($1, $2)`, /different approver/, [ops1, w.id])
+  a = await one(`select * from approve_withdrawal($1, $2)`, [ops2, w.id])
+  if (a.status !== 'approved') throw new Error(`after second: ${a.status}`)
+  // Ops rejects after approval: funds come back.
+  const before = await cash(carol)
+  const r = await one(`select * from reject_withdrawal($1, $2, 'Suspicious destination')`, [ops2, w.id])
+  if (r.status !== 'rejected' || (await cash(carol)) !== before + 151) throw new Error(`${r.status} ${await cash(carol)}`)
+})
+
+await test('user can cancel a pending withdrawal and gets funds back', async () => {
+  const before = await cash(carol)
+  const w = await req(carol, carolW, 20)
+  const r = await one(`select * from reject_withdrawal($1, $2, null)`, [carol, w.id])
+  if (r.status !== 'cancelled' || (await cash(carol)) !== before) throw new Error(`${r.status} ${await cash(carol)}`)
+})
+
+await test("failed payout can be retried and can't settle twice", async () => {
+  const w = await req(carol, carolW, 10)
+  await one(`select * from approve_withdrawal($1, $2)`, [ops1, w.id])
+  await one(`select claim_withdrawal_for_payout($1)`, [w.id])
+  const f = await one(`select * from fail_withdrawal($1, 'node timeout')`, [w.id])
+  if (f.status !== 'failed') throw new Error(f.status)
+  await expectError(`select settle_withdrawal($1, 'x', 'y')`, /not being paid out/, [w.id])
+  const r = await one(`select * from retry_withdrawal($1, $2)`, [ops2, w.id])
+  if (r.status !== 'approved') throw new Error(r.status)
+})
+
+await test('clients cannot call wallet functions directly', () =>
+  asUser(carol, async () => {
+    await expectError(`select request_withdrawal('${carol}', '${carolW}', 10)`, /permission denied/)
+    await expectError(`select record_deposit('${carolAddr}', 'evil', 'tx', 1000, 99, true, true)`, /permission denied/)
+    await expectError(`select approve_withdrawal('${carol}', '${carolW}')`, /permission denied/)
+  }))
+
+await test('whole ledger still sums to zero per asset', async () => {
+  const r = (await db.query(
+    `select a.asset_code, sum(l.amount) as s from ledger_lines l join ledger_accounts a on a.id = l.account_id
+     group by a.asset_code having sum(l.amount) <> 0`)).rows
+  if (r.length) throw new Error(JSON.stringify(r))
+})
+
 console.log(`\n${passed} passed, ${failed} failed`)
 process.exit(failed ? 1 : 0)

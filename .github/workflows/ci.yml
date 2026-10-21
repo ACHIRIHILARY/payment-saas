@@ -16,6 +16,13 @@ jobs:
       - run: npm ci
       - name: Database invariants (migrations + RLS + ledger rules)
         run: npm run test:db
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Edge Functions (type-check + unit tests)
+        run: |
+          deno check supabase/functions/*/index.ts
+          deno test --allow-env supabase/functions
       - name: Type-check shared package
         run: npx tsc -p packages/shared
       - name: Build apps

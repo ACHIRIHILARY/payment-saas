@@ -53,3 +53,52 @@ export interface LatestNav {
   valuation_date: string
   nav_per_unit: string
 }
+
+export interface Deposit {
+  id: string
+  asset_code: string
+  tx_hash: string
+  amount: string
+  confirmations: number
+  status: 'detected' | 'confirming' | 'screening' | 'credited' | 'held' | 'rejected'
+  created_at: string
+  user_id?: string
+  aml_result?: Record<string, unknown> | null
+}
+
+export interface WithdrawalAddress {
+  id: string
+  asset_code: string
+  address: string
+  label: string | null
+  usable_after: string
+  screened_ok: boolean | null
+  removed_at: string | null
+}
+
+export type WithdrawalStatus =
+  | 'requested' | 'pending_approval' | 'approved' | 'broadcast'
+  | 'completed' | 'rejected' | 'cancelled' | 'failed'
+
+export interface Withdrawal {
+  id: string
+  user_id: string
+  asset_code: string
+  address_id: string
+  amount: string
+  platform_fee: string
+  network_fee: string
+  status: WithdrawalStatus
+  approved_by_1: string | null
+  approved_by_2: string | null
+  reject_reason: string | null
+  tx_hash: string | null
+  created_at: string
+}
+
+export interface WithdrawalLimit {
+  asset_code: string
+  single_approval_limit: string
+  min_amount: string
+  platform_fee: string
+}

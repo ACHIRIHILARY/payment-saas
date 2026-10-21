@@ -1,6 +1,17 @@
 import { useEffect } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { getSupabase, type LatestNav, type Profile, type Strategy, type UserActivity, type UserBalance } from '@app/shared'
+import {
+  getSupabase,
+  type Deposit,
+  type LatestNav,
+  type Profile,
+  type Strategy,
+  type UserActivity,
+  type UserBalance,
+  type Withdrawal,
+  type WithdrawalAddress,
+  type WithdrawalLimit,
+} from '@app/shared'
 
 const supabase = () => getSupabase()
 
@@ -43,6 +54,35 @@ export const useStrategies = () =>
     },
   })
 
+export const useDeposits = () =>
+  useQuery({
+    queryKey: ['deposits'],
+    queryFn: () =>
+      unwrap<Deposit[]>(supabase().from('deposits').select('*').order('created_at', { ascending: false }).limit(50)),
+  })
+
+export const useWithdrawals = () =>
+  useQuery({
+    queryKey: ['withdrawals'],
+    queryFn: () =>
+      unwrap<Withdrawal[]>(supabase().from('withdrawals').select('*').order('created_at', { ascending: false }).limit(50)),
+  })
+
+export const useWithdrawalAddresses = () =>
+  useQuery({
+    queryKey: ['withdrawal-addresses'],
+    queryFn: () =>
+      unwrap<WithdrawalAddress[]>(
+        supabase().from('withdrawal_addresses').select('*').is('removed_at', null).order('created_at'),
+      ),
+  })
+
+export const useWithdrawalLimits = () =>
+  useQuery({
+    queryKey: ['withdrawal-limits'],
+    queryFn: () => unwrap<WithdrawalLimit[]>(supabase().from('withdrawal_limits').select('*')),
+  })
+
 // Any new ledger line, deposit or withdrawal for this user refreshes the views.
 // RLS on the realtime publication means users only receive their own rows.
 export function useLiveLedger() {
@@ -51,12 +91,16 @@ export function useLiveLedger() {
     const refresh = () => {
       void qc.invalidateQueries({ queryKey: ['balances'] })
       void qc.invalidateQueries({ queryKey: ['activity'] })
+      void qc.invalidateQueries({ queryKey: ['deposits'] })
+      void qc.invalidateQueries({ queryKey: ['withdrawals'] })
+      void qc.invalidateQueries({ queryKey: ['profile'] })
     }
     const channel = supabase()
       .channel('ledger-live')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'ledger_lines' }, refresh)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'deposits' }, refresh)
       .on('postgres_changes', { event: '*', schema: 'public', table: 'withdrawals' }, refresh)
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'profiles' }, refresh)
       .subscribe()
     return () => {
       void supabase().removeChannel(channel)

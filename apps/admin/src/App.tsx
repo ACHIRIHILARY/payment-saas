@@ -1,5 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import { MfaGate, SignIn, getSupabase, useAuth, type StaffRole } from '@app/shared'
+import { NavLink, Navigate, Route, Routes } from 'react-router-dom'
+import { MfaGate, SignIn, useAuth } from '@app/shared'
+import { useMe } from './data'
+import { Overview } from './pages/Overview'
+import { Withdrawals } from './pages/Withdrawals'
+import { KycReview } from './pages/KycReview'
+import { HeldDeposits } from './pages/HeldDeposits'
 
 // Staff console. Deploy separately from the user portal, behind an IP
 // allow-list. Staff accounts are invited, never self-registered.
@@ -14,55 +19,17 @@ export default function App() {
   )
 }
 
-function useRoles() {
-  return useQuery({
-    queryKey: ['my-roles'],
-    queryFn: async () => {
-      const { data: auth } = await getSupabase().auth.getUser()
-      const { data, error } = await getSupabase()
-        .from('staff_roles')
-        .select('role, tenant_id')
-        .eq('user_id', auth.user?.id ?? '')
-      if (error) throw new Error(error.message)
-      return (data ?? []) as { role: StaffRole; tenant_id: string }[]
-    },
-  })
-}
-
-async function count(table: string, filter: (q: any) => any) {
-  const { count, error } = await filter(getSupabase().from(table).select('*', { count: 'exact', head: true }))
-  if (error) throw new Error(error.message)
-  return count ?? 0
-}
-
-function useQueues(enabled: boolean) {
-  return useQuery({
-    enabled,
-    queryKey: ['queues'],
-    queryFn: async () => {
-      const [kyc, withdrawals, navDrafts, shortfalls] = await Promise.all([
-        count('kyc_cases', (q) => q.eq('status', 'pending')),
-        count('withdrawals', (q) => q.in('status', ['requested', 'pending_approval'])),
-        count('nav_reports', (q) => q.eq('status', 'draft')),
-        count('reconciliation_runs', (q) => q.neq('status', 'ok').gte('run_at', new Date(Date.now() - 864e5).toISOString())),
-      ])
-      return { kyc, withdrawals, navDrafts, shortfalls }
-    },
-  })
-}
-
-const QUEUES: { key: 'kyc' | 'withdrawals' | 'navDrafts' | 'shortfalls'; title: string; roles: StaffRole[]; hint: string }[] = [
-  { key: 'kyc', title: 'KYC cases to review', roles: ['compliance', 'admin'], hint: 'Phase 1' },
-  { key: 'withdrawals', title: 'Withdrawals awaiting approval', roles: ['ops', 'admin'], hint: 'Phase 1 (two approvers)' },
-  { key: 'navDrafts', title: 'NAV drafts to approve', roles: ['finance', 'admin'], hint: 'Phase 2 (four-eyes)' },
-  { key: 'shortfalls', title: 'Reconciliation alerts (24h)', roles: ['finance', 'compliance', 'admin'], hint: 'Phase 3' },
+const TABS = [
+  { to: '/', label: 'Overview', end: true },
+  { to: '/withdrawals', label: 'Withdrawals' },
+  { to: '/kyc', label: 'KYC review' },
+  { to: '/deposits', label: 'Held deposits' },
 ]
 
 function Console() {
   const { session, signOut } = useAuth()
-  const roles = useRoles()
-  const myRoles = new Set((roles.data ?? []).map((r) => r.role))
-  const queues = useQueues(myRoles.size > 0)
+  const me = useMe()
+  const hasAccess = (me.data?.roles.size ?? 0) > 0
 
   return (
     <div className="min-h-screen">
@@ -76,12 +43,30 @@ function Console() {
             </button>
           </div>
         </div>
+        {hasAccess && (
+          <nav className="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4">
+            {TABS.map((t) => (
+              <NavLink
+                key={t.to}
+                to={t.to}
+                end={t.end}
+                className={({ isActive }) =>
+                  `whitespace-nowrap rounded-t-lg px-4 py-2 text-sm font-semibold ${
+                    isActive ? 'bg-[var(--bg)] text-[var(--text)]' : 'text-white/80 hover:text-white'
+                  }`
+                }
+              >
+                {t.label}
+              </NavLink>
+            ))}
+          </nav>
+        )}
       </header>
 
       <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6">
-        {roles.isLoading ? (
+        {me.isLoading ? (
           <p className="muted">Checking access…</p>
-        ) : myRoles.size === 0 ? (
+        ) : !hasAccess ? (
           <div className="card">
             <h1 className="text-xl font-semibold">No staff access</h1>
             <p className="muted mt-1 text-sm">
@@ -89,31 +74,13 @@ function Console() {
             </p>
           </div>
         ) : (
-          <>
-            <div className="flex flex-wrap items-center gap-2 text-sm">
-              <span className="muted">Your roles:</span>
-              {[...myRoles].map((r) => (
-                <span key={r} className="rounded-full px-3 py-1 font-semibold" style={{ background: 'var(--bg)', border: '1px solid var(--border)' }}>
-                  {r}
-                </span>
-              ))}
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {QUEUES.filter((q) => q.roles.some((r) => myRoles.has(r))).map((q) => (
-                <div key={q.key} className="card">
-                  <p className="muted text-sm">{q.title}</p>
-                  <p className="mt-2 text-3xl font-bold tabular-nums">
-                    {queues.isLoading ? '…' : queues.error ? '!' : queues.data?.[q.key]}
-                  </p>
-                  <p className="muted mt-2 text-xs">Workflow: {q.hint}</p>
-                </div>
-              ))}
-            </div>
-            {queues.error && <p className="error">{(queues.error as Error).message}</p>}
-            <p className="muted text-xs">
-              Staff can read the ledger but never write to it. Every balance change goes through audited Edge Functions.
-            </p>
-          </>
+          <Routes>
+            <Route index element={<Overview roles={me.data!.roles} />} />
+            <Route path="withdrawals" element={<Withdrawals me={me.data!.id} />} />
+            <Route path="kyc" element={<KycReview />} />
+            <Route path="deposits" element={<HeldDeposits />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
         )}
       </main>
     </div>

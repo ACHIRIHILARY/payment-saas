@@ -23,9 +23,9 @@ export function Dashboard() {
               investment accounts.
             </p>
           </div>
-          <button className="btn-primary" disabled title="KYC provider integration lands in Phase 1">
-            Start verification
-          </button>
+          <Link to="/verify" className="btn-primary">
+            {profile.data.kyc_status === 'pending' ? 'View status' : 'Start verification'}
+          </Link>
         </div>
       )}
 
