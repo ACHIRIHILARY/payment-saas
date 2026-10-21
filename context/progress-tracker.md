@@ -52,7 +52,7 @@ Nothing.
 
 ## Open Questions
 
-- Push to GitHub: remote `origin` exists, nothing pushed yet. Waiting for the user's go-ahead.
+- (Resolved 2026-10-21) Pushed to github.com/ACHIRIHILARY/payment-saas `main`. Future pushes still need the user to confirm.
 - Which production custodian to target first (Fireblocks vs BitGo vs Coinbase Prime)?
 - Which stablecoin rail first for testnet (USDT on Tron via a custodian, or BTCPay plugin)?
 
